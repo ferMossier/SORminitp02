@@ -1,8 +1,8 @@
-#include <stdio.h>	//Libreria estandar
-#include <stdlib.h> 	//Para usar exit y funciones de la libreria standard
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <pthread.h>    //Para usar threads
-#include <semaphore.h>  //Para usar semaforos
+#include <pthread.h>
+#include <semaphore.h>
 #include <unistd.h>
 
 //Crear archivo de resultado
@@ -10,12 +10,11 @@
         char *modo = "a+";
 
 //Creo semaforos Mutex para acceder a sección crítica entre hilos (entre equipos)
-	sem_t sem_horno_libre;
-	sem_t sem_salero_libre;
-	sem_t sem_sarten_libre;
+	sem_t sem_horno;
+	sem_t sem_salero;
+	sem_t sem_sarten;
 	sem_t sem_ganar;
 
-//Variable necesaria
 	char *terminar_estado = "terminar";
 	int ganar_estado = 1;
 
@@ -27,8 +26,8 @@ struct semaforos{
 	sem_t sem_salar;
 	sem_t sem_empanar;
 	sem_t sem_cocinar;
-	sem_t sem_cortar_otros;
-	sem_t sem_hornear;
+	sem_t sem_cortar_verduras;
+	sem_t sem_pan;
 	sem_t sem_armar;
 	sem_t sem_terminar;
 };
@@ -50,11 +49,11 @@ struct parametro{
 void *imprimirAccion(void *data, char *accionIn){
 	struct parametro *mydata = data;
 	FILE *archivo = fopen(archivo_nombre, modo);
-	//Checkea si termino cada hilo
+	//Chequea si termino cada hilo
 	if(strcmp(terminar_estado, accionIn) == 0){
 		printf("\tEquipo %d - termino! \n ", mydata->equipo_param);
 		fprintf(archivo, "\tEquipo %d - termino! \n ", mydata->equipo_param);
-		//Checkea cual de los hilos termino primero
+		//Chequea cual de los hilos termino primero
 		sem_wait(&sem_ganar);
 		if(ganar_estado == 1){
 			ganar_estado = 0;
@@ -62,7 +61,7 @@ void *imprimirAccion(void *data, char *accionIn){
 			fprintf(archivo, "\tEquipo %d - ***¡GANADOR!*** \n ", mydata->equipo_param);
 		}
 	}
-	//Calculo la longitud del array de pas
+	//Calculo la longitud del array de pasos
 	int sizeArray = (int)(sizeof(mydata->pasos_param) / sizeof(mydata->pasos_param[0]));
 	//Indice para recorrer array de pasos
 	int i;
@@ -96,18 +95,18 @@ void *cortar(void *data){
 	//Llamo a la funcion imprimir le paso el struct y la accion de la funcion
 	imprimirAccion(mydata, accion);
 	//Uso sleep para simular que que pasa tiempo
-	usleep(2000000);
+	usleep(1000000);
 	//Doy la señal a la siguiente accion (cortar me habilita mezclar)
 	sem_post(&mydata->semaforos_param.sem_mezclar);
 	pthread_exit(NULL);
 }
 
-void *cortarOtros(void *data){
+void *cortarVerduras(void *data){
 	char *accion = "cortar otros";
         struct parametro *mydata = data;
 	imprimirAccion(mydata, accion);
-        usleep(2000000);
-	sem_post(&mydata->semaforos_param.sem_cortar_otros);
+        usleep(1000000);
+	sem_post(&mydata->semaforos_param.sem_cortar_verduras);
         pthread_exit(NULL);
 }
 
@@ -116,7 +115,7 @@ void *mezclar(void *data){
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_mezclar);
 	imprimirAccion(mydata, accion);
-	usleep(3000000);
+	usleep(2000000);
 	sem_post(&mydata->semaforos_param.sem_salar);
 	pthread_exit(NULL);
 }
@@ -125,11 +124,11 @@ void *salar(void *data){
 	char *accion = "salar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_salar);
-	sem_wait(&sem_salero_libre);
+	sem_wait(&sem_salero);
 	imprimirAccion(mydata, accion);
-	usleep(1000000);
+	usleep(500000);
 	sem_post(&mydata->semaforos_param.sem_empanar);
-	sem_post(&sem_salero_libre);
+	sem_post(&sem_salero);
 	pthread_exit(NULL);
 }
 
@@ -138,7 +137,7 @@ void *empanar(void *data){
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_empanar);
 	imprimirAccion(mydata, accion);
-	usleep(1000000);
+	usleep(2000000);
 	sem_post(&mydata->semaforos_param.sem_cocinar);
 	pthread_exit(NULL);
 }
@@ -147,22 +146,22 @@ void *cocinar(void *data){
 	char *accion = "cocinar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_cocinar);
-	sem_wait(&sem_sarten_libre);
+	sem_wait(&sem_sarten);
 	imprimirAccion(mydata, accion);
 	usleep(5000000);
-	sem_post(&mydata->semaforos_param.sem_hornear);
-	sem_post(&sem_sarten_libre);
+	sem_post(&mydata->semaforos_param.sem_pan);
+	sem_post(&sem_sarten);
 	pthread_exit(NULL);
 }
 
 void *hornear(void *data){
 	char *accion = "hornear";
 	struct parametro *mydata = data;
-	sem_wait(&mydata->semaforos_param.sem_hornear);
-	sem_wait(&sem_horno_libre);
+	sem_wait(&mydata->semaforos_param.sem_pan);
+	sem_wait(&sem_horno);
 	imprimirAccion(mydata, accion);
-	usleep(10000000);
-	sem_post(&sem_horno_libre);
+	usleep(8000000);
+	sem_post(&sem_horno);
 	sem_post(&mydata->semaforos_param.sem_armar);
 	pthread_exit(NULL);
 }
@@ -170,10 +169,10 @@ void *hornear(void *data){
 void *armar(void *data){
 	char *accion = "armar";
 	struct parametro *mydata = data;
-	sem_wait(&mydata->semaforos_param.sem_cortar_otros);
+	sem_wait(&mydata->semaforos_param.sem_cortar_verduras);
 	sem_wait(&mydata->semaforos_param.sem_armar);
 	imprimirAccion(mydata, accion);
-	usleep(1000000);
+	usleep(3000000);
 	sem_post(&mydata->semaforos_param.sem_terminar);
 	pthread_exit(NULL);
 }
@@ -193,8 +192,8 @@ void *ejecutarReceta(void *i){
 	sem_t sem_salar;
 	sem_t sem_empanar;
 	sem_t sem_cocinar;
-	sem_t sem_hornear;
-	sem_t sem_cortar_otros;
+	sem_t sem_pan;
+	sem_t sem_cortar_verduras;
 	sem_t sem_armar;
 	sem_t sem_terminar;
 
@@ -225,8 +224,8 @@ void *ejecutarReceta(void *i){
 	pthread_data->semaforos_param.sem_salar = sem_salar;
 	pthread_data->semaforos_param.sem_empanar = sem_empanar;
 	pthread_data->semaforos_param.sem_cocinar = sem_cocinar;
-	pthread_data->semaforos_param.sem_hornear = sem_hornear;
-	pthread_data->semaforos_param.sem_cortar_otros = sem_cortar_otros;
+	pthread_data->semaforos_param.sem_pan = sem_pan;
+	pthread_data->semaforos_param.sem_cortar_verduras = sem_cortar_verduras;
 	pthread_data->semaforos_param.sem_armar = sem_armar;
     pthread_data->semaforos_param.sem_terminar = sem_terminar;
 
@@ -265,8 +264,8 @@ void *ejecutarReceta(void *i){
 	sem_init(&(pthread_data->semaforos_param.sem_salar), 0, 0);
 	sem_init(&(pthread_data->semaforos_param.sem_empanar), 0, 0);
 	sem_init(&(pthread_data->semaforos_param.sem_cocinar), 0, 0);
-	sem_init(&(pthread_data->semaforos_param.sem_cortar_otros), 0, 0);
-	sem_init(&(pthread_data->semaforos_param.sem_hornear), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_cortar_verduras), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_pan), 0, 0);
 	sem_init(&(pthread_data->semaforos_param.sem_armar), 0, 0);
     sem_init(&(pthread_data->semaforos_param.sem_terminar), 0, 0);
 
@@ -277,7 +276,7 @@ void *ejecutarReceta(void *i){
 	rc = pthread_create(&p3, NULL, salar, pthread_data);
 	rc = pthread_create(&p4, NULL, empanar, pthread_data);
 	rc = pthread_create(&p5, NULL, cocinar, pthread_data);
-	rc = pthread_create(&p7, NULL, cortarOtros, pthread_data);
+	rc = pthread_create(&p7, NULL, cortarVerduras, pthread_data);
 	rc = pthread_create(&p6, NULL, hornear, pthread_data);
 	rc = pthread_create(&p8, NULL, armar, pthread_data);
 	rc = pthread_create(&p9, NULL, terminar, pthread_data);
@@ -304,8 +303,8 @@ void *ejecutarReceta(void *i){
 	sem_destroy(&sem_salar);
 	sem_destroy(&sem_empanar);
 	sem_destroy(&sem_cocinar);
-	sem_destroy(&sem_cortar_otros);
-	sem_destroy(&sem_hornear);
+	sem_destroy(&sem_cortar_verduras);
+	sem_destroy(&sem_pan);
 	sem_destroy(&sem_armar);
 	sem_destroy(&sem_terminar);
 
@@ -333,9 +332,9 @@ int main(){
 	pthread_t equipo4;
 
 	//Inicializo los semaforos que administran los recursos compartidos entre hilos
-	sem_init((&sem_horno_libre), 0, 1);
-	sem_init((&sem_salero_libre), 0, 1);
-	sem_init((&sem_sarten_libre), 0, 1);
+	sem_init((&sem_horno), 0, 1);
+	sem_init((&sem_salero), 0, 1);
+	sem_init((&sem_sarten), 0, 1);
 	sem_init((&sem_ganar), 0, 0); // Inicializa en cero ya que deberá ser habilitado por el semaforo sem_terminar
 
 	//Inicializo los hilos de los equipos
@@ -355,9 +354,9 @@ int main(){
 	pthread_join(equipo3, NULL);
 	pthread_join(equipo4, NULL);
 
-	sem_destroy(&sem_horno_libre);
-	sem_destroy(&sem_salero_libre);
-	sem_destroy(&sem_sarten_libre);
+	sem_destroy(&sem_horno);
+	sem_destroy(&sem_salero);
+	sem_destroy(&sem_sarten);
 	sem_destroy(&sem_ganar);
 
 	pthread_exit(NULL);

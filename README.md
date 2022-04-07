@@ -1,14 +1,19 @@
 # SOR-Semáforos-1S-2021 - Mossier Fernando
 *Trabajo Práctico Semáforos primer semestre 2022*
-----------
-----------
+
+---
+
 ## Introduccion
 
-El presente trabajo se propone simular una competencia culinaria entre cuatro equipos. El trabajo de cada uno de los qeuipos consiste en seguir una receta paso a paso para realizar un sandwich de milanesa completo. 
+El presente trabajo se propone simular una competencia culinaria entre cuatro equipos. El trabajo de cada uno de los equipos consiste en seguir una receta paso a paso para realizar un sandwich de milanesa completo. 
 
 Los equipos deberán turnarse para el uso de la sartén, el horno y la sal ya que solo existe uno de cada uno para los cuatro equipos.
 
 El objetivo es armar el sandwich correctamente en el menor tiempo posible. El primer equipo en lograrlo será el ganador
+
+---
+
+## Aspectos técnicos
 
 Con respecto a los aspectos técnicos de realización cabe destacar que:
 - Se utilizará el lenguaje de programación C.
@@ -16,5 +21,349 @@ Con respecto a los aspectos técnicos de realización cabe destacar que:
 - Para las tareas internas de cada equipo cuya realización dependan de la finalización de otras tareas y para las tareas que requieran el uso de recursos compartidos (sartén, salero y horno) se utilizarán semáforos.
 - Al finalizar la ejecución del programa se podrá consultar el archivo *log.txt* para ver un informe detallado del proceso de cada equipo y conocer al ganador.
 
-## Diagrama de ejecucion
-![alt](https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=semaforos.drawio#R7V1bk5s4Fv41XbXz0FOIO49ud2cmtdOTrnR2d7IvWzLINgkGD8bpdn79StwR2MgGJHB3UpWAJC6WvvNxztHR0Y0y37z%2BFsLt%2BjFwkHcjS87rjXJ%2FI8uyLqn4P1JySEtUU0tKVqHrJGWgKHh2f6K0UEpL966DdpWGURB4kbutFtqB7yM7qpTBMAxeqs2WgVd96hauUK3g2YZevfQ%2FrhOtk1JTk4ry35G7WmdPBlJas4D291UY7P30eX7go6RmA7PbpE13a%2BgEL6XnKQ83yjwMgig52rzOkUf6Neux5LoPR2rzVw6RH7FcsFYP6j8P%2F1PvZ08fP%2Fz35%2F3hq76%2BBUr6dj%2Bgt087I33d6JD1Tvz7ELmNdKPcvazdCD1voU1qXzAgcNk62nj4DODDlQd3u7SpA3fr%2BDpS4cEF8u7y%2FpoHXhDG91c%2BmPOH%2BRw3WQZ%2BlIID6OTc9bysXdyzyt0uCoPv%2BSBp6UOeYBSh0I%2BfJEvkaemvQmGEXo92WDEMGNoo2KAoPOAm6QV6hs4U1bdmev5SQEQ20rJ1BR56WgpTXK7ymxcDhA%2FSMTpjvGSzNjrIwVBOT4MwWgerwIfeQ1F6Vx2%2Fos0fQbBNB%2BcbiqJD2vVwHwXVMUWvbvQXufxXLT37mt6MHN%2B%2Flk8O2YmPf%2B9f5ZOvxR3IaXFZfJZdVx5zjI2laSPbzge%2BVLMwNVWTapCQ88EnHXN66HE%2FBvvQRqcEJGUjGK5QdKqd2oylEHkwcn9UX6R%2FWFgiYQHKoMgh8g4LMjAiUQFq1P7w997dBjFFdiL580ejBz5Wq3Sck2yJjoHcQMfqUGScfTvfpY6T1MmMUieWi2tSN8ejDHFHzW5k3cPvfbcI8dEqijtHhxsiXP5iR%2F67hd%2BIeNYb3m5RiL653gm5BSOVW1kaneDq09OiCln9Wq6bhuCqjIKrKCIlV61J7iP6aXtHRDcR1eNyWqtZ79GPpitsGGZG46TkWtEpuVYZ5docSq4B6G4e7b6jyF73LeWATcrBOTKeOxSkJtMZn5fGXZqRv%2FEtMveL3ij0lyKpF5owWWlC60gT8aWzMISHUoNt4PrRrnTnJ1JQ0j%2FlKt5li3K4UO0NUz7VHh8kb1DgPf8pl4uAWdf5N1voH%2BMw3PQJ%2BqTroOdhODU3mScMJSHSchNz4hXwlczKV4PpIfnTRsdXw2gl18dYgFWzAboIypLpT%2FRpxrLMU82HISxQ17pO2EuEjf5A9nq%2Fgs2VX4INjNARGkOLwPOOXPiEtq4fTJDWaPPKEK2FaUJ91G%2FQLQJ0RhLSrD5IqEYbQLIo3qCxlbxZehkFrz44RK9xyCzcnKCQR9eDPtphKpDswHZ96BxjhVg5WgdY%2FzmqHf0bhc4%2BxD%2BV3AwzlwN3E6QRSx6bNacYInlEujlbGwKTZpHE98LAIqYITUajJmM1%2BaQmQzfPFKFBVRm9PqsiCLAXuRvaAVvV0DFD3Ev3dSA7EJnLRiDrtokWy9EAOcEQdyQrtJJtnoYy1V7joZVnrosRGKZgcFzXzNImkJ9phjoaMh21SQhMeaHouiDIG0LMUNoTBozTdqhGm61ntjd4eNpAwyT6GGRkGGVlCBlZLpdys8bj6AtdEyUjliFCRkya5k8rOHTzzAtwVESsbu2BxEODysaoEo2Y2Fy7bWyKFcKm%2F70PYmMsDym8tRMEzchgrRb%2FkFX8ZcVvjd9FklWrONakX4rrS1PxiXGXFTxDMvWXluKfk1eUzEpcnLwYdY%2BQy6sO3ifEvMXd8IZ%2B7WM6u3HkB9N873nudofaTfoTwa%2Fxn35seJ3y3wo34TWhJvwFmuO0HYEKt9mITqjQu0eripilH8RMaLeVL8WmCFzpvahO9XkpShnRJIqwjviXz7ZTqBDT7PyoEmZ0a68qXOyU7tFuvYlb2U4ZaHLmCiwVZhqXhEa6Zp6rsSFrmG%2F9FXiJWHFlCnHx65ZZZVO9hU2pr8LZ7SUeFm09vKHVnqGMGCk3W0pHv5BDgg6JQPF2CTeud0iuyWPKMYwUAq418n6gyLVhraZ6k12MXHILIG9fqbrkLUmlH4QbYhOm1R4ia%2B9u8a%2BxXX%2FV2ARbNNEt9NyVn1TbGLoorFa7mBQIoEm9VHp6XBmF0N8t8U2z28fhaEmDlyB0qk8vX36pbZhe7ri7rQfTjnV9zy09eOkFMCq%2FUKtH4fd4HrnZp3DaxL4SrMTVL6nlSerV5D3fgXQaSJc6nN7RMXJ0nO3reh%2FRkY9oH%2FKeRx5dhRdSF%2B6GVMUGZpzhY7oglKJsllSsqTZbpE%2FLQmO0LBShBqvaPapBZCBDm4E6MmtzIphQhHLD%2BZiQzsHE2CYoJoIJdSw8wewkPTecY2Qez2ngInvNUYQnzOPA9fcAhUowf7gvIvknrjYrsnC1eYJpEs6jwZFFLqusC6A1sXkSRhPVwWmB13RwIQnFRcPi8yzhVN3y6pJwimFAemBkKhpABYyEPNh6cfWtpXkTLXhZAtB2wTuCJD6Cl73mFHJO8RFdelG0eNnNlihcsexOY3mYxpq7sXMyqsuWh1HrcKkYsdb2JoeghqwLp58piw8b0ZlnFEu0aWdMMwS3t8QzfEJ3%2B2QtmZW1RpEbS9NaWEvt1l5pyWRDR%2FIqPBbNZmM0reRbYihQZaXAAZNvjWf95rUk3%2BLMiawrOvtZltA1%2BZbSsuSSzr6l8IhP1eorLq8l%2FZYYS1O82x6A8RDbOXbnKSVtGtkANYuRkADo6qi9iJGARif442ItWjWK6Wt%2BkCxtyo%2FVhvnBLyjcULOkJ%2BcEz%2BIbhnlBIam8iu2JsmHWGDlpsH1rdKFTiW%2FQc60brLpRL2t92nMCZn4sXjkBsw64zpyAfHQbOiegeL8VAPK7biPE2NJZ56CF6TagmXCGTflXn%2FLOCIGMciz%2B2bAUugnxOTqSUy46Twci634zvUcux0hpbDpQ8m5idCA%2B1FXTgVRJtA6ULf5%2FO%2BFU7fHmg%2BpABqvP3OjqH%2BqGC6GrU0ToxpPBhdBo4%2Bw1m8Kp6osWOoVTsS4M6TOcShc%2BA2AIXfrxFgWPNQGF0XUSsxsuztqSQnA4FRfRpZ3c4mXXnKaP%2B9jkHWgR5OknnzGYl%2FiICbvSqgg3WgIM6PagJfkMHZAAeKRTNerrlaYap8WF5uggBV34XjpmdxVlsqkSe1nxypnkWHfi6SdKq55Ciw4hoJ0ZPSVKpMO9TLmFLY1u7ZWW9nTqMKr9QOxa33VoCuFeQpjUYGXSAcO9xjNzcDXhXnzJlXVKs3P6wm7WY33i8WoiqsQYm6ye%2B%2BG0sDe34FWwo8hknWw0Oe1oaDBmnO5LtzDr84rXFL3AhUfo6AVdF80jAIzHnLvUa1VVQn612pglPntCoYu7EIXHlJPJKSMmv1DPbp%2Bu48GXQwYoEKBnQQmKXBwDeQIBClzYqRagwOxsGixAwRpRmkQuAQoMSa4GVXMs5i3JhFo0VnfLeVrq73RwIXSe1KqvHcoDFOoZ9LoEKDBno%2BszQMES7rOyppeHcOKCxzpJaQndQMuqz%2BuNNkCBj%2BjSPiPxspurd1O19d7cBrEW8%2BSdmAgFam7Pqm5y3NoetLQ35W7teSwltOpTbhMNaOBDi%2FQ0nMW6EHA4F1hDJsBx0KJx%2BQqeifDbMJsz8oo50OmIK6llV3j6AoVHyJVVn%2F2bQFCAGDYCEuvOIANGBYzHI38tUQGcWY15XaLYzTKt%2BozetYQFiDHxTFO8LvPWFpCI9s8AiXUFCZCGibCsRQbke1NzigzIu%2BA6QwP4cAkdGjACuwiMJyPnhaEBZpVazBZqYQsMmLx%2BkhLR%2BCMF8hflHCqgaTfFfi9yccyaz0lkqAAftqqFCliskUyDhQqALNlGT0m9yiCoHjeA4IG83pYQR0gmMhxiGXtB%2FEnawyhs%2BHLRUyCxHe15aEWQJO1QSD6OqMEjmJdkBb%2FN%2Fpzdf%2Fpcwt%2BCbtuWY6zYdwiz3ZYU2l6wd%2FrB5xGKXIXQcVFRF%2B872g84VcrN0pjZ1WoAZ47YAdBZ98KURrIBmvQetzrZCZbG3fPDfP7x05%2B4%2Fv4B%2F%2FP5Yf6vz8%2BfnonF9enxafb5y8d7ctaEDAoCZG%2Fa6thWCSQdnjLbpEXpZrj36U64yh0ZPNeG3iyt2LiOE%2BsGTWCq6gsrD%2B526THW49Y5T3YAWkD2040IFJSmT3gPgNMp3e22YapP1hrwZpwPN3waBgQDhQaPO3L9GDiItPg%2F)
+---
+## Receta
+
+1. Cortar dos dientes de ajo y perejil.
+2. Mezclar los dos dientes de ajo y el perejil picado con huevo y carne.
+3. Salar la mezcla anterior a gusto.
+4. Empanar las milanesas.
+5. Cocinarlas por 5 minutos en sarten.
+6. Hornear el pan por diez minutos.
+7. Cortar lechuga, tomate, ceboola morada y pepino.
+8. Armar sandwich.
+
+---
+
+## Codigo
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
+
+char *archivo_nombre = "log.txt";
+char *modo = "a+";
+
+
+sem_t sem_horno;
+sem_t sem_salero;
+sem_t sem_sarten;
+sem_t sem_ganar;
+char *terminar_estado = "terminar";
+int ganar_estado = 1;
+
+#define LIMITE 50
+
+struct semaforos{
+	sem_t sem_mezclar;
+	sem_t sem_salar;
+	sem_t sem_empanar;
+	sem_t sem_cocinar;
+	sem_t sem_cortar_verduras;
+	sem_t sem_pan;
+	sem_t sem_armar;
+	sem_t sem_terminar;
+};
+
+struct paso{
+	char accion[LIMITE];
+	char ingredientes[4][LIMITE];
+};
+
+struct parametro{
+	int equipo_param;
+	struct semaforos semaforos_param;
+	struct paso pasos_param[8];
+};
+
+void *imprimirAccion(void *data, char *accionIn){
+	struct parametro *mydata = data;
+	FILE *archivo = fopen(archivo_nombre, modo);
+	if(strcmp(terminar_estado, accionIn) == 0){
+		printf("\tEquipo %d - termino! \n ", mydata->equipo_param);
+		fprintf(archivo, "\tEquipo %d - termino! \n ", mydata->equipo_param);
+		sem_wait(&sem_ganar);
+		if(ganar_estado == 1){
+			ganar_estado = 0;
+			printf("\tEquipo %d - ***¡GANADOR!***! \n ", mydata->equipo_param);
+			fprintf(archivo, "\tEquipo %d - ***¡GANADOR!*** \n ", mydata->equipo_param);
+		}
+	}
+	int sizeArray = (int)(sizeof(mydata->pasos_param) / sizeof(mydata->pasos_param[0]));
+	//Indice para recorrer array de pasos
+	int i;
+	for(i = 0; i < sizeArray; i++){
+		if(strcmp(mydata->pasos_param[i].accion, accionIn) == 0){
+			printf("\tEquipo %d - accion %s \n ", mydata->equipo_param, mydata->pasos_param[i].accion);
+		fprintf(archivo, "\tEquipo %d - accion %s \n ", mydata->equipo_param, mydata->pasos_param[i].accion);
+			int sizeArrayIngredientes = (int)(sizeof(mydata->pasos_param[i].ingredientes) / sizeof(mydata->pasos_param[i].ingredientes[0]));
+			int h;
+			printf("\tEquipo %d ----------- ingredientes : ----------\n", mydata->equipo_param);
+        	fprintf(archivo,"\tEquipo %d ----------- ingredientes : ----------\n", mydata->equipo_param);
+			for(h = 0; h < sizeArrayIngredientes; h++){
+				if(strlen(mydata->pasos_param[i].ingredientes[h]) != 0){
+					printf("\tEquipo %d ingrediente  %d : %s \n", mydata->equipo_param, h, mydata->pasos_param[i].ingredientes[h]);
+					fprintf(archivo, "\tEquipo %d ingrediente  %d : %s \n", mydata->equipo_param,h,mydata->pasos_param[i].ingredientes[h]);
+				}
+			}
+		}
+	}
+}
+
+void *cortar(void *data){
+	char *accion = "cortar";
+	struct parametro *mydata = data;
+	imprimirAccion(mydata, accion);
+	usleep(1000000);
+	sem_post(&mydata->semaforos_param.sem_mezclar);
+	pthread_exit(NULL);
+}
+
+void *cortarVerduras(void *data){
+	char *accion = "cortar otros";
+        struct parametro *mydata = data;
+	imprimirAccion(mydata, accion);
+        usleep(1000000);
+	sem_post(&mydata->semaforos_param.sem_cortar_verduras);
+        pthread_exit(NULL);
+}
+
+void *mezclar(void *data){
+	char *accion = "mezclar";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_mezclar);
+	imprimirAccion(mydata, accion);
+	usleep(2000000);
+	sem_post(&mydata->semaforos_param.sem_salar);
+	pthread_exit(NULL);
+}
+
+void *salar(void *data){
+	char *accion = "salar";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_salar);
+	sem_wait(&sem_salero);
+	imprimirAccion(mydata, accion);
+	usleep(500000);
+	sem_post(&mydata->semaforos_param.sem_empanar);
+	sem_post(&sem_salero);
+	pthread_exit(NULL);
+}
+
+void *empanar(void *data){
+	char *accion = "empanar";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_empanar);
+	imprimirAccion(mydata, accion);
+	usleep(2000000);
+	sem_post(&mydata->semaforos_param.sem_cocinar);
+	pthread_exit(NULL);
+}
+
+void *cocinar(void *data){
+	char *accion = "cocinar";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_cocinar);
+	sem_wait(&sem_sarten);
+	imprimirAccion(mydata, accion);
+	usleep(5000000);
+	sem_post(&mydata->semaforos_param.sem_pan);
+	sem_post(&sem_sarten);
+	pthread_exit(NULL);
+}
+
+void *hornear(void *data){
+	char *accion = "hornear";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_pan);
+	sem_wait(&sem_horno);
+	imprimirAccion(mydata, accion);
+	usleep(8000000);
+	sem_post(&sem_horno);
+	sem_post(&mydata->semaforos_param.sem_armar);
+	pthread_exit(NULL);
+}
+
+void *armar(void *data){
+	char *accion = "armar";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_cortar_verduras);
+	sem_wait(&mydata->semaforos_param.sem_armar);
+	imprimirAccion(mydata, accion);
+	usleep(3000000);
+	sem_post(&mydata->semaforos_param.sem_terminar);
+	pthread_exit(NULL);
+}
+
+void *terminar(void *data){
+	char *accion = "terminar";
+	struct parametro *mydata = data;
+	sem_wait(&mydata->semaforos_param.sem_terminar);
+	sem_post(&sem_ganar);
+	imprimirAccion(mydata, accion);
+	pthread_exit(NULL);
+}
+
+void *ejecutarReceta(void *i){
+	sem_t sem_mezclar;
+	sem_t sem_salar;
+	sem_t sem_empanar;
+	sem_t sem_cocinar;
+	sem_t sem_pan;
+	sem_t sem_cortar_verduras;
+	sem_t sem_armar;
+	sem_t sem_terminar;
+
+	pthread_t p1;
+	pthread_t p2;
+	pthread_t p3;
+	pthread_t p4;
+	pthread_t p5;
+	pthread_t p6;
+	pthread_t p7;
+	pthread_t p8;
+	pthread_t p9;
+
+	int p = *((int *)i);
+
+	printf("Ejecutando equipo %d \n", p);
+
+	struct parametro *pthread_data = malloc(sizeof(struct parametro));
+
+	pthread_data->equipo_param = p;
+
+	pthread_data->semaforos_param.sem_mezclar = sem_mezclar;
+	pthread_data->semaforos_param.sem_salar = sem_salar;
+	pthread_data->semaforos_param.sem_empanar = sem_empanar;
+	pthread_data->semaforos_param.sem_cocinar = sem_cocinar;
+	pthread_data->semaforos_param.sem_pan = sem_pan;
+	pthread_data->semaforos_param.sem_cortar_verduras = sem_cortar_verduras;
+	pthread_data->semaforos_param.sem_armar = sem_armar;
+    pthread_data->semaforos_param.sem_terminar = sem_terminar;
+
+	strcpy(pthread_data->pasos_param[0].accion, "cortar");
+    strcpy(pthread_data->pasos_param[0].ingredientes[0], "ajo");
+    strcpy(pthread_data->pasos_param[0].ingredientes[1], "perejil");
+    strcpy(pthread_data->pasos_param[1].accion, "mezclar");
+    strcpy(pthread_data->pasos_param[1].ingredientes[0], "ajo");
+    strcpy(pthread_data->pasos_param[1].ingredientes[1], "perejil");
+    strcpy(pthread_data->pasos_param[1].ingredientes[2], "huevo");
+    strcpy(pthread_data->pasos_param[1].ingredientes[3], "carne");
+    strcpy(pthread_data->pasos_param[2].accion, "salar");
+    strcpy(pthread_data->pasos_param[2].ingredientes[0], "sal");
+	strcpy(pthread_data->pasos_param[2].ingredientes[1], "mezcla");
+    strcpy(pthread_data->pasos_param[3].accion, "empanar");
+    strcpy(pthread_data->pasos_param[3].ingredientes[0], "pan rallado");
+    strcpy(pthread_data->pasos_param[3].ingredientes[1], "carne");
+    strcpy(pthread_data->pasos_param[3].ingredientes[2], "mezcla");
+    strcpy(pthread_data->pasos_param[4].accion, "cocinar");
+    strcpy(pthread_data->pasos_param[4].ingredientes[0], "milanesa");
+    strcpy(pthread_data->pasos_param[5].accion, "hornear");
+    strcpy(pthread_data->pasos_param[5].ingredientes[0], "panes");
+    strcpy(pthread_data->pasos_param[6].accion, "cortar otros");
+    strcpy(pthread_data->pasos_param[6].ingredientes[0], "lechuga");
+    strcpy(pthread_data->pasos_param[6].ingredientes[1], "tomate");
+    strcpy(pthread_data->pasos_param[6].ingredientes[2], "cebolla morada");
+    strcpy(pthread_data->pasos_param[6].ingredientes[3], "pepino");
+    strcpy(pthread_data->pasos_param[7].accion, "armar");
+    strcpy(pthread_data->pasos_param[7].ingredientes[0], "milanesa");
+    strcpy(pthread_data->pasos_param[7].ingredientes[1], "pan");
+    strcpy(pthread_data->pasos_param[7].ingredientes[2], "verduras");
+
+	sem_init(&(pthread_data->semaforos_param.sem_mezclar), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_salar), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_empanar), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_cocinar), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_cortar_verduras), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_pan), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_armar), 0, 0);
+    sem_init(&(pthread_data->semaforos_param.sem_terminar), 0, 0);
+
+	int rc;
+	rc = pthread_create(&p1, NULL, cortar, pthread_data);
+	rc = pthread_create(&p2, NULL, mezclar, pthread_data);
+	rc = pthread_create(&p3, NULL, salar, pthread_data);
+	rc = pthread_create(&p4, NULL, empanar, pthread_data);
+	rc = pthread_create(&p5, NULL, cocinar, pthread_data);
+	rc = pthread_create(&p7, NULL, cortarVerduras, pthread_data);
+	rc = pthread_create(&p6, NULL, hornear, pthread_data);
+	rc = pthread_create(&p8, NULL, armar, pthread_data);
+	rc = pthread_create(&p9, NULL, terminar, pthread_data);
+
+	pthread_join(p1, NULL);
+	pthread_join(p2, NULL);
+	pthread_join(p3, NULL);
+	pthread_join(p4, NULL);
+	pthread_join(p5, NULL);
+	pthread_join(p6, NULL);
+	pthread_join(p7, NULL);
+	pthread_join(p8, NULL);
+    pthread_join(p9, NULL);
+
+	if (rc){
+		printf("Error:unable to create thread, %d \n", rc);
+		exit(-1);
+	}
+
+	sem_destroy(&sem_mezclar);
+	sem_destroy(&sem_salar);
+	sem_destroy(&sem_empanar);
+	sem_destroy(&sem_cocinar);
+	sem_destroy(&sem_cortar_verduras);
+	sem_destroy(&sem_pan);
+	sem_destroy(&sem_armar);
+	sem_destroy(&sem_terminar);
+
+	pthread_exit(NULL);
+}
+
+int main(){
+	int rc;
+	int *equipoNombre1 = malloc(sizeof(*equipoNombre1));
+	int *equipoNombre2 = malloc(sizeof(*equipoNombre2));
+	int *equipoNombre3 = malloc(sizeof(*equipoNombre3));
+	int *equipoNombre4 = malloc(sizeof(*equipoNombre4));
+
+	*equipoNombre1 = 1;
+	*equipoNombre2 = 2;
+	*equipoNombre3 = 3;
+	*equipoNombre4 = 4;
+
+	pthread_t equipo1;
+	pthread_t equipo2;
+	pthread_t equipo3;
+	pthread_t equipo4;
+
+	sem_init((&sem_horno), 0, 1);
+	sem_init((&sem_salero), 0, 1);
+	sem_init((&sem_sarten), 0, 1);
+	sem_init((&sem_ganar), 0, 0); 
+
+	rc = pthread_create(&equipo1, NULL, ejecutarReceta, equipoNombre1);
+	rc = pthread_create(&equipo2, NULL, ejecutarReceta, equipoNombre2);
+	rc = pthread_create(&equipo3, NULL, ejecutarReceta, equipoNombre3);
+	rc = pthread_create(&equipo4, NULL, ejecutarReceta, equipoNombre4);
+
+	if (rc){
+		printf("Error:unable to create thread, %d \n", rc);
+		exit(-1);
+	}
+
+	pthread_join(equipo1, NULL);
+	pthread_join(equipo2, NULL);
+	pthread_join(equipo3, NULL);
+	pthread_join(equipo4, NULL);
+
+	sem_destroy(&sem_horno);
+	sem_destroy(&sem_salero);
+	sem_destroy(&sem_sarten);
+	sem_destroy(&sem_ganar);
+
+	pthread_exit(NULL);
+}
+
+```
