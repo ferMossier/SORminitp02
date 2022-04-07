@@ -1,5 +1,13 @@
 # SOR-Semáforos-1S-2021 - Mossier Fernando
+
 *Trabajo Práctico Semáforos primer semestre 2022*
+
+---
+
+### Docentes
+
+- Mariano Vargas
+- Ignacio Tula
 
 ---
 
@@ -387,5 +395,36 @@ int main()
 
 	pthread_exit(NULL);
 }
-
 ```
+
+---
+
+## Ejecución del programa
+
+Lo siguiente es una breve explicación sobre como se comporta el programa
+
+1. El programa inicia ejecutando cuatro hilos, uno por cada equipo. Es decir que estos equipos estarán haciendo concurrentemente todas las tareas que sean posibles.
+2. Al interior de cada equipo, cada tarea se ejecutará en un hilo independiente y su ejecución estará organizada con semáforos ya que hay tareas que dependen de la finalización de otras. 
+3. Casi todas las tareas son dependientes de otras a excepción de dos:
+   - cortar ajo y perejil --> Se ejecuta apenas inicia la ejecución
+   - cortar lechuga, tomate, cebolla y pepino --> Se ejecuta en cualquier momento disponible de forma concurrente con otras tareas.
+4. Los equipos van a disputarse el uso de los recursos compartidos (sarten, sal y horno), por lo tanto el ganador será aleatorio ya que dependerá del scheduler. Multiples ejecuciones del programa arrojarán diferentes ganadores.
+5. Finalmente, el primer equipo que logre finalizar todas las tareas primero, será el ganador.
+
+**Para mas detalle, ver diagrama de ejecución adjunto.**
+
+---
+
+## Problemas y sus soluciones
+
+Al momento de desarrollar lo solicitado en la consigna, el primer paso fue investigar y consultar documentación sobre la librería *semaphore.h* de C, ya que desconocía las funciones que se estaban utilizando y que significaban sus parámetros. 
+
+Una vez investigado, probado y entendido como funciona esa librería, decidí ponerme a codificar tomando como referencia el template que nos fue otorgado. Desde ya que resultó muy complicado ya que había hecho un análisis muy escaso de los requerimientos y de como pretendía que funcione el programa. Es por esto que decidí bosquejar un diagrama sobre como debería comportarse la ejecución. Eso me ayudó mucho a aclarar como organizar el código.
+
+Por otro lado, el trabajo me presentó algunos problemas al momento de ejecutar hilos y semáforos ya que el mismo se comportaba erráticamente y varias veces la ejecución se quedaba colgada. Llegué a la conclusión de que eso tenía que ver con que había funciones que se quedaban esperando la liberación de semáforos que nunca se liberaban. Después de mucho análisis y correcciones se llegó a una versión que funciona correctamente.
+
+---
+
+## Conclusiones
+
+La realización de este trabajo tuvo en mi dos grandes beneficios: en primer lugar me resulta muy agradable empezar a conocer un lenguaje de programación de más bajo nivel con respecto a los que estoy acostumbrado y, en segundo lugar, me ayudó muchísimo a entender mejor los beneficios de la programación concurrente. En un programa que se ejecuta en múltiples hilos, los tiempos de ejecución se reducen muchísimo cuando es necesario ejecutar varias tareas independientes entre sí. Y en el caso de que existan tareas que son dependientes entre esos hilos, fácilmente se pueden organizar mediante semáforos. 
