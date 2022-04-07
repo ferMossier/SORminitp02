@@ -9,7 +9,7 @@
         char *archivo_nombre = "log.txt";
         char *modo = "a+";
 
-//Creo semaforos Mutex para acceder a sección crítica entre hilos (entre equipos)
+//Creo semaforos
 	sem_t sem_horno;
 	sem_t sem_salero;
 	sem_t sem_sarten;
