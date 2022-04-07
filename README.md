@@ -48,17 +48,18 @@ Con respecto a los aspectos técnicos de realización cabe destacar que:
 char *archivo_nombre = "log.txt";
 char *modo = "a+";
 
-
 sem_t sem_horno;
 sem_t sem_salero;
 sem_t sem_sarten;
 sem_t sem_ganar;
+
 char *terminar_estado = "terminar";
 int ganar_estado = 1;
 
 #define LIMITE 50
 
-struct semaforos{
+struct semaforos
+{
 	sem_t sem_mezclar;
 	sem_t sem_salar;
 	sem_t sem_empanar;
@@ -69,52 +70,61 @@ struct semaforos{
 	sem_t sem_terminar;
 };
 
-struct paso{
+struct paso
+{
 	char accion[LIMITE];
 	char ingredientes[4][LIMITE];
 };
 
-struct parametro{
+struct parametro
+{
 	int equipo_param;
 	struct semaforos semaforos_param;
 	struct paso pasos_param[8];
 };
 
-void *imprimirAccion(void *data, char *accionIn){
+void *imprimirAccion(void *data, char *accionIn)
+{
 	struct parametro *mydata = data;
 	FILE *archivo = fopen(archivo_nombre, modo);
-	if(strcmp(terminar_estado, accionIn) == 0){
+	if (strcmp(terminar_estado, accionIn) == 0)
+	{
 		printf("\tEquipo %d - termino! \n ", mydata->equipo_param);
 		fprintf(archivo, "\tEquipo %d - termino! \n ", mydata->equipo_param);
 		sem_wait(&sem_ganar);
-		if(ganar_estado == 1){
+		if (ganar_estado == 1)
+		{
 			ganar_estado = 0;
 			printf("\tEquipo %d - ***¡GANADOR!***! \n ", mydata->equipo_param);
 			fprintf(archivo, "\tEquipo %d - ***¡GANADOR!*** \n ", mydata->equipo_param);
 		}
 	}
 	int sizeArray = (int)(sizeof(mydata->pasos_param) / sizeof(mydata->pasos_param[0]));
-	//Indice para recorrer array de pasos
 	int i;
-	for(i = 0; i < sizeArray; i++){
-		if(strcmp(mydata->pasos_param[i].accion, accionIn) == 0){
+	for (i = 0; i < sizeArray; i++)
+	{
+		if (strcmp(mydata->pasos_param[i].accion, accionIn) == 0)
+		{
 			printf("\tEquipo %d - accion %s \n ", mydata->equipo_param, mydata->pasos_param[i].accion);
-		fprintf(archivo, "\tEquipo %d - accion %s \n ", mydata->equipo_param, mydata->pasos_param[i].accion);
+			fprintf(archivo, "\tEquipo %d - accion %s \n ", mydata->equipo_param, mydata->pasos_param[i].accion);
 			int sizeArrayIngredientes = (int)(sizeof(mydata->pasos_param[i].ingredientes) / sizeof(mydata->pasos_param[i].ingredientes[0]));
 			int h;
 			printf("\tEquipo %d ----------- ingredientes : ----------\n", mydata->equipo_param);
-        	fprintf(archivo,"\tEquipo %d ----------- ingredientes : ----------\n", mydata->equipo_param);
-			for(h = 0; h < sizeArrayIngredientes; h++){
-				if(strlen(mydata->pasos_param[i].ingredientes[h]) != 0){
+			fprintf(archivo, "\tEquipo %d ----------- ingredientes : ----------\n", mydata->equipo_param);
+			for (h = 0; h < sizeArrayIngredientes; h++)
+			{
+				if (strlen(mydata->pasos_param[i].ingredientes[h]) != 0)
+				{
 					printf("\tEquipo %d ingrediente  %d : %s \n", mydata->equipo_param, h, mydata->pasos_param[i].ingredientes[h]);
-					fprintf(archivo, "\tEquipo %d ingrediente  %d : %s \n", mydata->equipo_param,h,mydata->pasos_param[i].ingredientes[h]);
+					fprintf(archivo, "\tEquipo %d ingrediente  %d : %s \n", mydata->equipo_param, h, mydata->pasos_param[i].ingredientes[h]);
 				}
 			}
 		}
 	}
 }
 
-void *cortar(void *data){
+void *cortar(void *data)
+{
 	char *accion = "cortar";
 	struct parametro *mydata = data;
 	imprimirAccion(mydata, accion);
@@ -123,16 +133,18 @@ void *cortar(void *data){
 	pthread_exit(NULL);
 }
 
-void *cortarVerduras(void *data){
+void *cortarVerduras(void *data)
+{
 	char *accion = "cortar otros";
-        struct parametro *mydata = data;
+	struct parametro *mydata = data;
 	imprimirAccion(mydata, accion);
-        usleep(1000000);
+	usleep(1000000);
 	sem_post(&mydata->semaforos_param.sem_cortar_verduras);
-        pthread_exit(NULL);
+	pthread_exit(NULL);
 }
 
-void *mezclar(void *data){
+void *mezclar(void *data)
+{
 	char *accion = "mezclar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_mezclar);
@@ -142,7 +154,8 @@ void *mezclar(void *data){
 	pthread_exit(NULL);
 }
 
-void *salar(void *data){
+void *salar(void *data)
+{
 	char *accion = "salar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_salar);
@@ -154,7 +167,8 @@ void *salar(void *data){
 	pthread_exit(NULL);
 }
 
-void *empanar(void *data){
+void *empanar(void *data)
+{
 	char *accion = "empanar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_empanar);
@@ -164,7 +178,8 @@ void *empanar(void *data){
 	pthread_exit(NULL);
 }
 
-void *cocinar(void *data){
+void *cocinar(void *data)
+{
 	char *accion = "cocinar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_cocinar);
@@ -176,7 +191,8 @@ void *cocinar(void *data){
 	pthread_exit(NULL);
 }
 
-void *hornear(void *data){
+void *hornear(void *data)
+{
 	char *accion = "hornear";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_pan);
@@ -188,7 +204,8 @@ void *hornear(void *data){
 	pthread_exit(NULL);
 }
 
-void *armar(void *data){
+void *armar(void *data)
+{
 	char *accion = "armar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_cortar_verduras);
@@ -199,7 +216,8 @@ void *armar(void *data){
 	pthread_exit(NULL);
 }
 
-void *terminar(void *data){
+void *terminar(void *data)
+{
 	char *accion = "terminar";
 	struct parametro *mydata = data;
 	sem_wait(&mydata->semaforos_param.sem_terminar);
@@ -208,7 +226,8 @@ void *terminar(void *data){
 	pthread_exit(NULL);
 }
 
-void *ejecutarReceta(void *i){
+void *ejecutarReceta(void *i)
+{
 	sem_t sem_mezclar;
 	sem_t sem_salar;
 	sem_t sem_empanar;
@@ -243,36 +262,36 @@ void *ejecutarReceta(void *i){
 	pthread_data->semaforos_param.sem_pan = sem_pan;
 	pthread_data->semaforos_param.sem_cortar_verduras = sem_cortar_verduras;
 	pthread_data->semaforos_param.sem_armar = sem_armar;
-    pthread_data->semaforos_param.sem_terminar = sem_terminar;
+	pthread_data->semaforos_param.sem_terminar = sem_terminar;
 
 	strcpy(pthread_data->pasos_param[0].accion, "cortar");
-    strcpy(pthread_data->pasos_param[0].ingredientes[0], "ajo");
-    strcpy(pthread_data->pasos_param[0].ingredientes[1], "perejil");
-    strcpy(pthread_data->pasos_param[1].accion, "mezclar");
-    strcpy(pthread_data->pasos_param[1].ingredientes[0], "ajo");
-    strcpy(pthread_data->pasos_param[1].ingredientes[1], "perejil");
-    strcpy(pthread_data->pasos_param[1].ingredientes[2], "huevo");
-    strcpy(pthread_data->pasos_param[1].ingredientes[3], "carne");
-    strcpy(pthread_data->pasos_param[2].accion, "salar");
-    strcpy(pthread_data->pasos_param[2].ingredientes[0], "sal");
+	strcpy(pthread_data->pasos_param[0].ingredientes[0], "ajo");
+	strcpy(pthread_data->pasos_param[0].ingredientes[1], "perejil");
+	strcpy(pthread_data->pasos_param[1].accion, "mezclar");
+	strcpy(pthread_data->pasos_param[1].ingredientes[0], "ajo");
+	strcpy(pthread_data->pasos_param[1].ingredientes[1], "perejil");
+	strcpy(pthread_data->pasos_param[1].ingredientes[2], "huevo");
+	strcpy(pthread_data->pasos_param[1].ingredientes[3], "carne");
+	strcpy(pthread_data->pasos_param[2].accion, "salar");
+	strcpy(pthread_data->pasos_param[2].ingredientes[0], "sal");
 	strcpy(pthread_data->pasos_param[2].ingredientes[1], "mezcla");
-    strcpy(pthread_data->pasos_param[3].accion, "empanar");
-    strcpy(pthread_data->pasos_param[3].ingredientes[0], "pan rallado");
-    strcpy(pthread_data->pasos_param[3].ingredientes[1], "carne");
-    strcpy(pthread_data->pasos_param[3].ingredientes[2], "mezcla");
-    strcpy(pthread_data->pasos_param[4].accion, "cocinar");
-    strcpy(pthread_data->pasos_param[4].ingredientes[0], "milanesa");
-    strcpy(pthread_data->pasos_param[5].accion, "hornear");
-    strcpy(pthread_data->pasos_param[5].ingredientes[0], "panes");
-    strcpy(pthread_data->pasos_param[6].accion, "cortar otros");
-    strcpy(pthread_data->pasos_param[6].ingredientes[0], "lechuga");
-    strcpy(pthread_data->pasos_param[6].ingredientes[1], "tomate");
-    strcpy(pthread_data->pasos_param[6].ingredientes[2], "cebolla morada");
-    strcpy(pthread_data->pasos_param[6].ingredientes[3], "pepino");
-    strcpy(pthread_data->pasos_param[7].accion, "armar");
-    strcpy(pthread_data->pasos_param[7].ingredientes[0], "milanesa");
-    strcpy(pthread_data->pasos_param[7].ingredientes[1], "pan");
-    strcpy(pthread_data->pasos_param[7].ingredientes[2], "verduras");
+	strcpy(pthread_data->pasos_param[3].accion, "empanar");
+	strcpy(pthread_data->pasos_param[3].ingredientes[0], "pan rallado");
+	strcpy(pthread_data->pasos_param[3].ingredientes[1], "carne");
+	strcpy(pthread_data->pasos_param[3].ingredientes[2], "mezcla");
+	strcpy(pthread_data->pasos_param[4].accion, "cocinar");
+	strcpy(pthread_data->pasos_param[4].ingredientes[0], "milanesa");
+	strcpy(pthread_data->pasos_param[5].accion, "hornear");
+	strcpy(pthread_data->pasos_param[5].ingredientes[0], "panes");
+	strcpy(pthread_data->pasos_param[6].accion, "cortar otros");
+	strcpy(pthread_data->pasos_param[6].ingredientes[0], "lechuga");
+	strcpy(pthread_data->pasos_param[6].ingredientes[1], "tomate");
+	strcpy(pthread_data->pasos_param[6].ingredientes[2], "cebolla morada");
+	strcpy(pthread_data->pasos_param[6].ingredientes[3], "pepino");
+	strcpy(pthread_data->pasos_param[7].accion, "armar");
+	strcpy(pthread_data->pasos_param[7].ingredientes[0], "milanesa");
+	strcpy(pthread_data->pasos_param[7].ingredientes[1], "pan");
+	strcpy(pthread_data->pasos_param[7].ingredientes[2], "verduras");
 
 	sem_init(&(pthread_data->semaforos_param.sem_mezclar), 0, 0);
 	sem_init(&(pthread_data->semaforos_param.sem_salar), 0, 0);
@@ -281,7 +300,7 @@ void *ejecutarReceta(void *i){
 	sem_init(&(pthread_data->semaforos_param.sem_cortar_verduras), 0, 0);
 	sem_init(&(pthread_data->semaforos_param.sem_pan), 0, 0);
 	sem_init(&(pthread_data->semaforos_param.sem_armar), 0, 0);
-    sem_init(&(pthread_data->semaforos_param.sem_terminar), 0, 0);
+	sem_init(&(pthread_data->semaforos_param.sem_terminar), 0, 0);
 
 	int rc;
 	rc = pthread_create(&p1, NULL, cortar, pthread_data);
@@ -302,9 +321,10 @@ void *ejecutarReceta(void *i){
 	pthread_join(p6, NULL);
 	pthread_join(p7, NULL);
 	pthread_join(p8, NULL);
-    pthread_join(p9, NULL);
+	pthread_join(p9, NULL);
 
-	if (rc){
+	if (rc)
+	{
 		printf("Error:unable to create thread, %d \n", rc);
 		exit(-1);
 	}
@@ -321,7 +341,8 @@ void *ejecutarReceta(void *i){
 	pthread_exit(NULL);
 }
 
-int main(){
+int main()
+{
 	int rc;
 	int *equipoNombre1 = malloc(sizeof(*equipoNombre1));
 	int *equipoNombre2 = malloc(sizeof(*equipoNombre2));
@@ -348,7 +369,8 @@ int main(){
 	rc = pthread_create(&equipo3, NULL, ejecutarReceta, equipoNombre3);
 	rc = pthread_create(&equipo4, NULL, ejecutarReceta, equipoNombre4);
 
-	if (rc){
+	if (rc)
+	{
 		printf("Error:unable to create thread, %d \n", rc);
 		exit(-1);
 	}
