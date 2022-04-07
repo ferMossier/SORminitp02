@@ -11,6 +11,19 @@
 
 ---
 
+## Link
+
+Desde el siguiente link será posible descargar el código fuente y toda la documentación sobre el trabajo práctico:
+
+[LINK: MiniTp02-MossierFernando](https://github.com/ferMossier/SORminitp02)
+
+### Compilar
+- gcc subwayArgento.c -o subway -lpthread
+### Ejecutar
+- ./subway
+
+---
+
 ## Introduccion
 
 El presente trabajo se propone simular una competencia culinaria entre cuatro equipos. El trabajo de cada uno de los equipos consiste en seguir una receta paso a paso para realizar un sandwich de milanesa completo. 
